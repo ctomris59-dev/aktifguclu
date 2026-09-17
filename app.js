@@ -191,17 +191,18 @@ function renderExercise(ex,parent,scope,week){
 
 function renderWorkout(){
   const st=state(), w=+st.week, day=st.selectedDay, program=programForWeek(w), el=q("#workout");
-  el.innerHTML=`<div class="section-head"><h2>${w===5?"5+":w}. Hafta · Gün ${day}</h2><span>${program[day].length} hareket</span></div>`;
+  el.innerHTML=`<div class="section-head"><h2>${w===5?"5+":w}. Hafta · Gün ${day}</h2><span>${program[day].length} hareket</span></div><div class="flow-card card"><div class="flow-intro"><div class="flow-chip"><b>Önce</b><small>Isınma</small></div><div class="flow-chip"><b>8–10 dk</b><small>her idman</small></div><div class="flow-chip"><b>5 hareket</b><small>hazırlık</small></div></div><button class="primary warmup-open">Isınmayı aç</button></div>`;
+  el.querySelector(".warmup-open")?.addEventListener("click",()=>setTab("flow"));
   program[day].forEach(ex=>renderExercise(ex,el,"day"+day,w));
 }
 
 function renderFlow(){
   const w=+state().week, el=q("#flow");
-  el.innerHTML=`<div class="section-head"><h2>Akış & Mobilite</h2><span>8–10 dk</span></div>
+  el.innerHTML=`<div class="section-head"><h2>Isınma</h2><span>her idman öncesi · 8–10 dk</span></div>
     <div class="flow-card card">
       <div class="flow-intro">
-        <div class="flow-chip"><b>Yavaş</b><small>acele yok</small></div>
-        <div class="flow-chip"><b>Rahat</b><small>ağrısız aralık</small></div>
+        <div class="flow-chip"><b>Her idman</b><small>öncesinde</small></div>
+        <div class="flow-chip"><b>Yavaş</b><small>kontrollü</small></div>
         <div class="flow-chip"><b>Nefes</b><small>tutmadan</small></div>
       </div>
     </div>`;
@@ -232,7 +233,7 @@ function renderHistory(){
   const box=document.createElement("div"); box.className="history-card card";
   logs.slice(0,100).forEach(x=>{
     const d=new Date(x.time);
-    const where=x.scope==="flow"?"Akış":x.scope.replace("day","Gün ");
+    const where=x.scope==="flow"?"Isınma":x.scope.replace("day","Gün ");
     box.insertAdjacentHTML("beforeend",`<div class="log-item"><b>${x.name}</b><small>${d.toLocaleString("tr-TR")} · Hafta ${x.week} · ${where} · ${x.sets} set · ${x.reps}${x.weight?` · ${x.weight} kg`:""}</small></div>`);
   });
   el.appendChild(box);
