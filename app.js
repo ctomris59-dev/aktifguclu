@@ -8,11 +8,13 @@ const dayInfo = {
 };
 
 const flow = [
-  {id:"catcamel",name:"Cat–Cow",muscles:"Omurga mobilitesi",sets:1,reps:"6 yavaş tekrar",weighted:false,cue:"Ağrısız aralıkta yavaş hareket et."},
-  {id:"hiprotation",name:"Ayakta Kalça Rotasyonu",muscles:"Kalça mobilitesi",sets:1,reps:"6/yan",weighted:false,cue:"Gövdeyi mümkün olduğunca sabit tut."},
-  {id:"chairpose",name:"Chair Pose",muscles:"Bacak · denge",sets:1,reps:"20–30 sn",weighted:false,cue:"Dizler ayak yönünde; nefesi tutma."},
-  {id:"downdog",name:"Downward Dog",muscles:"Arka zincir · omuz",sets:1,reps:"20–30 sn",weighted:false,cue:"Dizleri hafif kırabilirsin; beli zorlamadan uzat."},
-  {id:"childpose",name:"Child's Pose",muscles:"Rahatlama · mobilite",sets:1,reps:"30–45 sn",weighted:false,cue:"Rahat nefes al; zorlayıcı germe yapma."}
+  {id:"march",name:"Yerinde Tempolu Yürüyüş",muscles:"Genel ısınma · dolaşım",sets:1,reps:"60–90 sn",weighted:false,cue:"Rahat tempoda başla; kolları doğal şekilde kullan ve nefesi tutma."},
+  {id:"hiprotation",name:"Ayakta Kalça Rotasyonu",muscles:"Kalça mobilitesi",sets:1,reps:"6/yan",weighted:false,cue:"Küçük ve kontrollü daireler çiz; gövdeyi mümkün olduğunca sabit tut."},
+  {id:"bwsquat",name:"Bodyweight Squat",muscles:"Bacak · kalça aktivasyonu",sets:1,reps:"8 tekrar",weighted:false,cue:"Rahat derinliğe in; dizleri ayak yönünde tut ve kontrollü kalk."},
+  {id:"hiphinge",name:"Ağırlıksız Hip Hinge",muscles:"Kalça · arka bacak hazırlığı",sets:1,reps:"8 tekrar",weighted:false,cue:"Dizleri hafif kır; kalçayı geriye gönder. Isınmada ağırlık kullanma."},
+  {id:"armcircles",name:"Kol / Omuz Çevirme",muscles:"Omuz · üst gövde mobilitesi",sets:1,reps:"8–10/ yön",weighted:false,cue:"Küçük dairelerle başla, rahatça büyüt; omuzları zorlamadan öne ve arkaya çevir."},
+  {id:"catcamel",name:"Cat–Cow",muscles:"Omurga mobilitesi",sets:1,reps:"6 yavaş tekrar",weighted:false,cue:"Ağrısız hareket aralığında, nefesle birlikte yavaşça uygula."},
+  {id:"downdog",name:"Kısa Downward Dog",muscles:"Arka zincir · omuz",sets:1,reps:"15–20 sn",weighted:false,cue:"İsteğe bağlıdır. Dizleri hafif kırabilirsin; uzun ve sert bir germe yapma."}
 ];
 
 const week1 = {
@@ -64,6 +66,9 @@ const baseProgram = {
 };
 
 const tenorPosts = {
+  march:{id:"26557315",url:"https://tenor.com/view/marching-in-place-gif-26557315",ratio:"0.98"},
+  hiphinge:{id:"16373163138971048501",url:"https://tenor.com/view/dumbbell-rdl-gif-16373163138971048501",ratio:"1"},
+  armcircles:{id:"21819709",url:"https://tenor.com/view/arm-circles-gif-21819709",ratio:"1.79"},
   catcamel:{id:"3241472213518054401",url:"https://tenor.com/view/cat-cow-stretch-gif-3241472213518054401",ratio:"1"},
   hiprotation:{id:"13808788",url:"https://tenor.com/view/shaking-hip-rotation-hip-rotating-relaxing-fitness-gif-13808788",ratio:"1.77"},
   bwsquat:{id:"20516887",url:"https://tenor.com/view/squat-james-smith-james-smith-pt-perfect-form-working-out-gif-20516887",ratio:"0.56"},
@@ -191,22 +196,24 @@ function renderExercise(ex,parent,scope,week){
 
 function renderWorkout(){
   const st=state(), w=+st.week, day=st.selectedDay, program=programForWeek(w), el=q("#workout");
-  el.innerHTML=`<div class="section-head"><h2>${w===5?"5+":w}. Hafta · Gün ${day}</h2><span>${program[day].length} hareket</span></div><div class="flow-card card"><div class="flow-intro"><div class="flow-chip"><b>Önce</b><small>Isınma</small></div><div class="flow-chip"><b>8–10 dk</b><small>her idman</small></div><div class="flow-chip"><b>5 hareket</b><small>hazırlık</small></div></div><button class="primary warmup-open">Isınmayı aç</button></div>`;
+  el.innerHTML=`<div class="section-head"><h2>${w===5?"5+":w}. Hafta · Gün ${day}</h2><span>${program[day].length} hareket</span></div><div class="flow-card card"><div class="flow-intro"><div class="flow-chip"><b>Önce</b><small>Isınma</small></div><div class="flow-chip"><b>6–8 dk</b><small>her idman</small></div><div class="flow-chip"><b>7 hareket</b><small>dinamik hazırlık</small></div></div><button class="primary warmup-open">Isınmayı aç</button></div>`;
   el.querySelector(".warmup-open")?.addEventListener("click",()=>setTab("flow"));
   program[day].forEach(ex=>renderExercise(ex,el,"day"+day,w));
 }
 
 function renderFlow(){
   const w=+state().week, el=q("#flow");
-  el.innerHTML=`<div class="section-head"><h2>Isınma</h2><span>her idman öncesi · 8–10 dk</span></div>
+  el.innerHTML=`<div class="section-head"><h2>Isınma</h2><span>her idman öncesi · 6–8 dk</span></div>
     <div class="flow-card card">
       <div class="flow-intro">
-        <div class="flow-chip"><b>Her idman</b><small>öncesinde</small></div>
-        <div class="flow-chip"><b>Yavaş</b><small>kontrollü</small></div>
+        <div class="flow-chip"><b>Dinamik</b><small>önce hareket</small></div>
+        <div class="flow-chip"><b>Kontrollü</b><small>yorulmadan</small></div>
         <div class="flow-chip"><b>Nefes</b><small>tutmadan</small></div>
       </div>
     </div>`;
   flow.forEach(ex=>renderExercise(ex,el,"flow",w));
+  el.insertAdjacentHTML("beforeend",'<div class="flow-card card"><button class="primary go-workout">Isınma tamamlandı → Antrenmana geç</button></div>');
+  el.querySelector(".go-workout")?.addEventListener("click",()=>{setTab("workout");window.scrollTo({top:0,behavior:"smooth"});});
 }
 
 function openWorkoutDay(day){
