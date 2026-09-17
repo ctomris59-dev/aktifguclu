@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#151d2d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Aktif & Güçlü">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Aktif & Güçlü</title>
+</head>
+<body>
+  <header class="appbar">
+    <div>
+      <h1>Aktif & Güçlü</h1>
+      <div class="subline">Güç · denge · hareket</div>
+    </div>
+    <button id="installBtn" class="ghost" hidden>Yükle</button>
+  </header>
+
+  <main class="shell">
+    <section class="toolbar card">
+      <select id="weekSelect" aria-label="Program haftası">
+        <option value="1">1. hafta · alışma</option>
+        <option value="2">2. hafta · temel</option>
+        <option value="3">3. hafta · güçlenme</option>
+        <option value="4">4. hafta · ilerleme</option>
+        <option value="5">5+ hafta · düzenli</option>
+      </select>
+
+      <div id="daySwitch" class="day-switch"></div>
+
+      <div class="stats-row">
+        <div class="mini-stat"><span>Gün</span><strong id="todayDone">0%</strong></div>
+        <div class="mini-stat"><span>Hafta</span><strong id="weekDone">0/3</strong></div>
+        <div class="mini-stat"><span>Kayıt</span><strong id="logCount">0</strong></div>
+      </div>
+    </section>
+
+    <section id="workout" class="panel active"></section>
+    <section id="flow" class="panel"></section>
+    <section id="program" class="panel"></section>
+    <section id="history" class="panel"></section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Alt menü">
+    <button class="navbtn active" data-tab="workout">Antrenman</button>
+    <button class="navbtn" data-tab="flow">Akış</button>
+    <button class="navbtn" data-tab="program">Program</button>
+    <button class="navbtn" data-tab="history">Geçmiş</button>
+  </nav>
+
+  <template id="exerciseTemplate">
+    <article class="exercise card">
+      <div class="exercise-head">
+        <div>
+          <h3 class="exercise-name"></h3>
+          <div class="exercise-meta"></div>
+        </div>
+        <label class="done-box">
+          <input type="checkbox" class="done">
+          <span>✓</span>
+        </label>
+      </div>
+
+      <div class="exercise-topline">
+        <div class="pill last-used" hidden></div>
+        <button class="demo-toggle">Göster</button>
+      </div>
+
+      <div class="demo-wrap" hidden>
+        <div class="demo"></div>
+        <ul class="cues"></ul>
+      </div>
+
+      <div class="logging">
+        <label>
+          <span>Set</span>
+          <input class="sets" inputmode="numeric" type="number" min="1" max="6">
+        </label>
+        <label>
+          <span>Tekrar / süre</span>
+          <input class="reps" type="text">
+        </label>
+        <label class="weight-label">
+          <span>Ağırlık</span>
+          <input class="weight" inputmode="decimal" type="number" min="0" step="0.5" placeholder="kg">
+        </label>
+      </div>
+
+      <button class="primary save-log">Kaydet</button>
+    </article>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
